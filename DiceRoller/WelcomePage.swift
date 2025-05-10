@@ -22,19 +22,21 @@ struct WelcomePage: View {
                     Text("Dice Roller")
                         .font(.largeTitle.lowercaseSmallCaps())
                         .foregroundStyle(.white)
-                        .offset(y: animateTitle ? -131 : 0)
+                        .offset(y: animateTitle ? -132 : 0)
                         .animation(.easeInOut(duration: 1), value: animateTitle)
                 }
                 .padding()
             }
         }
         .onAppear {
-            withAnimation {
-                animateTitle = true
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation {
-                    isActive = true
+                    animateTitle = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    withAnimation {
+                        isActive = true
+                    }
                 }
             }
         }
