@@ -14,8 +14,8 @@ struct DIceView: View {
         VStack {
             Image(systemName: "die.face.\(numOfPoints)")
                 .resizable()
-                .frame(width: 125, height: 125)
-                .padding(20)
+                .frame(width: 100, height: 100)
+                .padding(7)
             
             Button("Roll") {
                 withAnimation{
@@ -23,6 +23,8 @@ struct DIceView: View {
                 }
             }
             .buttonStyle(.bordered)
+            .font(.title2)
+            .padding(.top, 10)
         }
     }
 }
