@@ -12,10 +12,11 @@ struct DIceView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "die.face.\(numOfPoints)")
+            Image(systemName: "die.face.\(numOfPoints).fill")
                 .resizable()
                 .frame(maxWidth: 100, maxHeight: 100)
                 .aspectRatio(1, contentMode: .fit)
+                .foregroundStyle(.black, .white)
                 .padding(7)
             
             Button("Roll") {
@@ -25,6 +26,7 @@ struct DIceView: View {
             }
             .buttonStyle(.bordered)
             .font(.title2)
+            .aspectRatio(1, contentMode: .fit)
             .padding(.top, 10)
         }
     }
