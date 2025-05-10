@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct DIceView: View {
+    @State private var numOfPoints: Int = 1
+    
     var body: some View {
-        Image(systemName: "die.face.1")
+        VStack {
+            Image(systemName: "die.face.\(numOfPoints)")
+                .resizable()
+                .frame(width: 125, height: 125)
+                .padding(20)
+            
+            Button("Roll") {
+                withAnimation{
+                    numOfPoints = Int.random(in: 1...6)
+                }
+            }
+            .buttonStyle(.bordered)
+        }
     }
 }
 
