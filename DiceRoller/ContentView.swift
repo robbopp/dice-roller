@@ -30,6 +30,8 @@ struct ContentView: View {
                     }
                 }
                 .disabled(numberOfDices == 1)
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(.black, .white)
                 
                 Button("Add Dice", systemImage: "plus.circle.fill") {
                     withAnimation() {
@@ -38,6 +40,9 @@ struct ContentView: View {
                     }
                 }
                 .disabled(numberOfDices == 5)
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(.black, .white)
+                
             }
             .padding()
             .labelStyle(.iconOnly)

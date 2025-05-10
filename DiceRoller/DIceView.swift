@@ -26,8 +26,8 @@ struct DIceView: View {
             }
             .buttonStyle(.bordered)
             .font(.title2)
-            .aspectRatio(1, contentMode: .fit)
             .padding(.top, 10)
+            .clipShape(Capsule())
         }
     }
 }
