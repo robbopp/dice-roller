@@ -23,6 +23,7 @@ It’s designed to be lightweight, visually clean, and easy to extend.
 
 ## 🧩 Project Structure  
 
+```plaintext
 DiceRoller/
 │
 ├── DiceRollerApp.swift      // App entry point (SwiftUI App lifecycle)
@@ -34,6 +35,7 @@ DiceRoller/
 │   ├── AccentColor.colorset // Accent color used in the app
 │   └── AppBackground.colorset // Background color theme
 └── Info.plist               // App configuration and permissions
+```
 
 ---
 
@@ -47,7 +49,7 @@ cd dice-roller
 open DiceRoller.xcodeproj
 
 # 3. Build & Run
-# Select a simulator or iPhone device, then press "Run" ▶️ in Xcode
+Select a simulator or iPhone device, then press "Run" ▶️ in Xcode
 
 ---
 
