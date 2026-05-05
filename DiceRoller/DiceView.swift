@@ -1,5 +1,5 @@
 //
-//  DIceView.swift
+//  DiceView.swift
 //  DiceRoller
 //
 //  Created by Robert Oprean on 10.05.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DIceView: View {
+struct DiceView: View {
     @State private var numOfPoints: Int = 1
     
     var body: some View {
@@ -33,5 +33,5 @@ struct DIceView: View {
 }
 
 #Preview {
-    DIceView()
+    DiceView()
 }
