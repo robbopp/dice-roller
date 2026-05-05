@@ -10,8 +10,9 @@ import SwiftUI
 struct ContentView: View {
     private let minDice = 1
     private let maxDice = 5
+    private let faceRange = 1...6
 
-    @State private var numberOfDices: Int = 1
+    @State private var diceValues: [Int] = [1]
 
     var body: some View {
         VStack {
@@ -20,31 +21,42 @@ struct ContentView: View {
                 .foregroundStyle(.white)
 
             HStack {
-                ForEach(1...numberOfDices, id: \.self) { _ in
-                    DiceView()
+                ForEach(diceValues.indices, id: \.self) { index in
+                    DiceView(value: diceValues[index])
                 }
             }
+
+            Button("Roll All") {
+                withAnimation {
+                    diceValues = diceValues.map { _ in Int.random(in: faceRange) }
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.white)
+            .foregroundStyle(.appBackground)
+            .font(.title2)
+            .clipShape(Capsule())
+            .padding(.vertical, 8)
 
             HStack {
                 Button("Remove Dice", systemImage: "minus.circle.fill") {
                     withAnimation {
-                        numberOfDices -= 1
+                        diceValues = Array(diceValues.dropLast())
                     }
                 }
-                .disabled(numberOfDices == minDice)
+                .disabled(diceValues.count == minDice)
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(.black, .white)
 
                 Button("Add Dice", systemImage: "plus.circle.fill") {
                     withAnimation {
-                        numberOfDices += 1
+                        diceValues.append(Int.random(in: faceRange))
                     }
                 }
-                .disabled(numberOfDices == maxDice)
+                .disabled(diceValues.count == maxDice)
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(.black, .white)
             }
-            .padding()
             .labelStyle(.iconOnly)
             .font(.title)
         }

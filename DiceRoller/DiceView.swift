@@ -8,33 +8,19 @@
 import SwiftUI
 
 struct DiceView: View {
-    private let faceRange = 1...6
+    let value: Int
     private let diceSize: CGFloat = 100
 
-    @State private var numOfPoints: Int = 1
-
     var body: some View {
-        VStack {
-            Image(systemName: "die.face.\(numOfPoints).fill")
-                .resizable()
-                .frame(maxWidth: diceSize, maxHeight: diceSize)
-                .aspectRatio(1, contentMode: .fit)
-                .foregroundStyle(.black, .white)
-                .padding(7)
-
-            Button("Roll") {
-                withAnimation {
-                    numOfPoints = Int.random(in: faceRange)
-                }
-            }
-            .buttonStyle(.bordered)
-            .font(.title2)
-            .padding(.top, 10)
-            .clipShape(Capsule())
-        }
+        Image(systemName: "die.face.\(value).fill")
+            .resizable()
+            .frame(maxWidth: diceSize, maxHeight: diceSize)
+            .aspectRatio(1, contentMode: .fit)
+            .foregroundStyle(.black, .white)
+            .padding(7)
     }
 }
 
 #Preview {
-    DiceView()
+    DiceView(value: 3)
 }
