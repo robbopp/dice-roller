@@ -11,8 +11,24 @@ struct ContentView: View {
     private let minDice = 1
     private let maxDice = 5
     private let faceRange = 1...6
+    private let rollCycles = 10
+    private let rollInterval: TimeInterval = 0.08
 
     @State private var diceValues: [Int] = [1]
+    @State private var isRolling = false
+
+    @MainActor
+    private func rollAll() async {
+        isRolling = true
+        for _ in 0..<rollCycles {
+            diceValues = diceValues.map { _ in Int.random(in: faceRange) }
+            try? await Task.sleep(for: .seconds(rollInterval))
+        }
+        withAnimation {
+            diceValues = diceValues.map { _ in Int.random(in: faceRange) }
+        }
+        isRolling = false
+    }
 
     var body: some View {
         VStack {
@@ -27,9 +43,7 @@ struct ContentView: View {
             }
 
             Button(diceValues.count == minDice ? "Roll" : "Roll All") {
-                withAnimation {
-                    diceValues = diceValues.map { _ in Int.random(in: faceRange) }
-                }
+                Task { await rollAll() }
             }
             .buttonStyle(.borderedProminent)
             .tint(.white)
@@ -37,6 +51,7 @@ struct ContentView: View {
             .font(.title2)
             .clipShape(Capsule())
             .padding(.vertical, 8)
+            .disabled(isRolling)
 
             HStack {
                 Button("Remove Dice", systemImage: "minus.circle.fill") {
@@ -44,7 +59,7 @@ struct ContentView: View {
                         diceValues = Array(diceValues.dropLast())
                     }
                 }
-                .disabled(diceValues.count == minDice)
+                .disabled(diceValues.count == minDice || isRolling)
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(.black, .white)
 
@@ -53,7 +68,7 @@ struct ContentView: View {
                         diceValues.append(Int.random(in: faceRange))
                     }
                 }
-                .disabled(diceValues.count == maxDice)
+                .disabled(diceValues.count == maxDice || isRolling)
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(.black, .white)
             }
