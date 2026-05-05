@@ -26,7 +26,7 @@ struct ContentView: View {
                 }
             }
 
-            Button("Roll All") {
+            Button(diceValues.count == minDice ? "Roll" : "Roll All") {
                 withAnimation {
                     diceValues = diceValues.map { _ in Int.random(in: faceRange) }
                 }
