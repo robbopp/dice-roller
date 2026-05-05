@@ -8,41 +8,41 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    private let minDice = 1
+    private let maxDice = 5
+
     @State private var numberOfDices: Int = 1
-    
+
     var body: some View {
         VStack {
             Text("Dice Roller")
                 .font(.largeTitle.lowercaseSmallCaps())
                 .foregroundStyle(.white)
-            
+
             HStack {
-                ForEach(1...numberOfDices, id: \.description) { _ in
+                ForEach(1...numberOfDices, id: \.self) { _ in
                     DiceView()
                 }
             }
-            
+
             HStack {
                 Button("Remove Dice", systemImage: "minus.circle.fill") {
-                    withAnimation() {
+                    withAnimation {
                         numberOfDices -= 1
                     }
                 }
-                .disabled(numberOfDices == 1)
+                .disabled(numberOfDices == minDice)
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(.black, .white)
-                
+
                 Button("Add Dice", systemImage: "plus.circle.fill") {
-                    withAnimation() {
-                        
+                    withAnimation {
                         numberOfDices += 1
                     }
                 }
-                .disabled(numberOfDices == 5)
+                .disabled(numberOfDices == maxDice)
                 .symbolRenderingMode(.palette)
                 .foregroundStyle(.black, .white)
-                
             }
             .padding()
             .labelStyle(.iconOnly)

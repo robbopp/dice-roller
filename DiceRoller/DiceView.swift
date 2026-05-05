@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct DiceView: View {
+    private let faceRange = 1...6
+    private let diceSize: CGFloat = 100
+
     @State private var numOfPoints: Int = 1
-    
+
     var body: some View {
         VStack {
             Image(systemName: "die.face.\(numOfPoints).fill")
                 .resizable()
-                .frame(maxWidth: 100, maxHeight: 100)
+                .frame(maxWidth: diceSize, maxHeight: diceSize)
                 .aspectRatio(1, contentMode: .fit)
                 .foregroundStyle(.black, .white)
                 .padding(7)
-            
+
             Button("Roll") {
-                withAnimation{
-                    numOfPoints = Int.random(in: 1...6)
+                withAnimation {
+                    numOfPoints = Int.random(in: faceRange)
                 }
             }
             .buttonStyle(.bordered)
