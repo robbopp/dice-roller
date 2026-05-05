@@ -16,6 +16,7 @@ struct ContentView: View {
 
     @State private var diceValues: [Int] = [1]
     @State private var isRolling = false
+    @State private var history: [RollRecord] = []
 
     @MainActor
     private func rollAll() async {
@@ -24,9 +25,11 @@ struct ContentView: View {
             diceValues = diceValues.map { _ in Int.random(in: faceRange) }
             try? await Task.sleep(for: .seconds(rollInterval))
         }
+        let finalValues = diceValues.map { _ in Int.random(in: faceRange) }
         withAnimation {
-            diceValues = diceValues.map { _ in Int.random(in: faceRange) }
+            diceValues = finalValues
         }
+        history.insert(RollRecord(values: finalValues), at: 0)
         isRolling = false
     }
 
@@ -74,6 +77,29 @@ struct ContentView: View {
             }
             .labelStyle(.iconOnly)
             .font(.title)
+
+            if !history.isEmpty {
+                ScrollView {
+                    LazyVStack(spacing: 0) {
+                        ForEach(history) { record in
+                            HistoryRow(record: record)
+                        }
+                    }
+                }
+                .frame(maxHeight: 220)
+                .mask(
+                    LinearGradient(
+                        stops: [
+                            .init(color: .black, location: 0),
+                            .init(color: .black, location: 0.45),
+                            .init(color: .black.opacity(0.4), location: 0.75),
+                            .init(color: .clear, location: 1.0)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
