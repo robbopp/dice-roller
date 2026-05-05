@@ -22,7 +22,7 @@ struct WelcomePage: View {
                     Text("Dice Roller")
                         .font(.largeTitle.lowercaseSmallCaps())
                         .foregroundStyle(.white)
-                        .offset(y: animateTitle ? -132 : 0)
+                        .offset(y: animateTitle ? -132  : 0)
                         .animation(.easeInOut(duration: 1), value: animateTitle)
                 }
                 .padding()
@@ -30,9 +30,7 @@ struct WelcomePage: View {
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation {
-                    animateTitle = true
-                }
+                animateTitle = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         isActive = true
